@@ -2,11 +2,12 @@ require('dotenv').config()
 
 const express = require('express')
 const server = express()
+const path = require('path')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 
 server.use(bodyParser.json())
-server.use(express.static('public'))
+server.use(express.static(path.join(__dirname, '/../dist')))
 server.use(morgan('dev', { skip: () => process.env.NODE_ENV === 'test' }))
 
 server.listen(process.env.APP_PORT, err => {

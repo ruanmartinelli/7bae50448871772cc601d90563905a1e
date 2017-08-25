@@ -6,9 +6,10 @@
   "author": "Ruan Martinelli <martinelliruan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "",
-    "dev": "./node_modules/.bin/nodemon src/index.js",
-    "lint": "./node_modules/.bin/standard --fix"
+    "start": "./node_modules/.bin/webpack --display none -p && node server/index.js",
+    "dev": "./node_modules/.bin/nodemon server/index.js --ignore client/ --ignore /dist & ./node_modules/.bin/webpack --watch",
+    "lint": "./node_modules/.bin/standard --fix",
+    "build":"./node_modules/.bin/webpack"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -19,6 +20,19 @@
     "moment": "^2.18.1",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "standard": "^10.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
   }
 }
