@@ -1,0 +1,24 @@
+{
+  "name": "7bae50448871772cc601d90563905a1e",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ruanmartinelli/7bae50448871772cc601d90563905a1e.git",
+  "author": "Ruan Martinelli <martinelliruan@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "",
+    "dev": "./node_modules/.bin/nodemon src/index.js",
+    "lint": "./node_modules/.bin/standard --fix"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "morgan": "^1.8.2",
+    "nodemon": "^1.11.0",
+    "standard": "^10.0.3"
+  }
+}

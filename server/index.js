@@ -1,0 +1,18 @@
+require('dotenv').config()
+
+const express = require('express')
+const server = express()
+const morgan = require('morgan')
+const bodyParser = require('body-parser')
+
+server.use(bodyParser.json())
+server.use(express.static('public'))
+server.use(morgan('dev', { skip: () => process.env.NODE_ENV === 'test' }))
+
+server.listen(process.env.APP_PORT, err => {
+  if (err) throw err
+
+  console.log(`Listening on port ${process.env.APP_PORT}`)
+})
+
+module.exports = server
