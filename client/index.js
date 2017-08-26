@@ -6,6 +6,7 @@ class App extends React.Component {
     return (
       <div>
         <h1> react works 💪</h1>
+        <a href='/oauth_request'>Sign In</a>
       </div>
     )
   }

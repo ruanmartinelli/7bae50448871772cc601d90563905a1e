@@ -7,11 +7,14 @@
   "license": "MIT",
   "scripts": {
     "start": "./node_modules/.bin/webpack --display none -p && node server/index.js",
-    "dev": "./node_modules/.bin/nodemon server/index.js --ignore client/ --ignore /dist & ./node_modules/.bin/webpack --watch",
+    "dev": "./node_modules/.bin/nodemon server/index.js --ignore client/ --ignore /dist --ignore *.json & ./node_modules/.bin/webpack --watch",
     "lint": "./node_modules/.bin/standard --fix",
-    "build":"./node_modules/.bin/webpack"
+    "build": "./node_modules/.bin/webpack",
+    "test": "NODE_ENV=test ./node_modules/.bin/ava",
+    "test-watch": "NODE_ENV=test ./node_modules/.bin/ava --watch --verbose"
   },
   "dependencies": {
+    "ava": "^0.22.0",
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
@@ -20,6 +23,7 @@
     "moment": "^2.18.1",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
+    "oauth": "^0.9.15",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
