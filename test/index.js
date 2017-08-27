@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const _ = require('lodash')
 const test = require('ava')
 const request = require('axios')
 const app = require('../server')
@@ -35,4 +36,12 @@ test('GET /twitter/callback should check for QS parameters', async t => {
   } catch (err) {
     t.is(err.response.status, 400)
   }
+})
+
+test('POST /connect should return Twitter information', async t => {
+  const response = await request.post('/connect')
+
+  t.is(response.status, 200)
+  t.is(_.isNil(response.data.id), false)
+  t.is(_.isNil(response.data.name), false)
 })
