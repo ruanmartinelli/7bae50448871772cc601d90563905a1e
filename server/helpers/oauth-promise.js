@@ -9,6 +9,7 @@ const {
 } = process.env
 
 const OAuth = require('oauth').OAuth
+const store = require('./store')
 
 module.exports = () => {
   const oauth = new OAuth(
@@ -21,7 +22,7 @@ module.exports = () => {
     OAUTH_SIGNATURE_METHOD
   )
 
-  function getOAuthAccessToken ({
+  function getOAuthAccessToken({
     oauthToken,
     oauthTokenSecret,
     oauthVerifier
@@ -39,7 +40,7 @@ module.exports = () => {
     })
   }
 
-  function getOAuthRequestToken () {
+  function getOAuthRequestToken() {
     return new Promise((resolve, reject) => {
       oauth.getOAuthRequestToken(
         (err, oauthToken, oauthTokenSecret, results) => {
@@ -55,8 +56,25 @@ module.exports = () => {
     })
   }
 
+  function get(url) {
+    const { oauthAccessToken, oauthAccessTokenSecret } = store.getToken()
+
+    return new Promise((resolve, reject) => {
+      oauth.get(
+        url,
+        oauthAccessToken,
+        oauthAccessTokenSecret,
+        (err, data, res) => {
+          if (err) return reject(err)
+          resolve(data)
+        }
+      )
+    })
+  }
+
   return {
     getOAuthRequestToken,
-    getOAuthAccessToken
+    getOAuthAccessToken,
+    get
   }
 }

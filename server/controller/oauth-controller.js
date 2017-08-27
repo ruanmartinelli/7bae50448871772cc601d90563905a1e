@@ -1,23 +1,22 @@
 const catchErrrors = require('../helpers/catch-errors')
 const oauthPromise = require('../helpers/oauth-promise')()
+const store = require('../helpers/store')
 
-let temp = {}
-
-function init (app) {
+function init(app) {
   app.get('/oauth_request', catchErrrors(requestRequestToken))
   app.get('/twitter/callback', catchErrrors(requestAccessToken))
 }
 
-async function requestRequestToken (req, res, next) {
+async function requestRequestToken(req, res, next) {
   const {
     oauthToken,
     oauthTokenSecret
   } = await oauthPromise.getOAuthRequestToken()
 
-  temp = {
+  store.saveToken({
     oauthToken,
     oauthTokenSecret
-  }
+  })
 
   res.redirect(
     302,
@@ -25,7 +24,7 @@ async function requestRequestToken (req, res, next) {
   )
 }
 
-async function requestAccessToken (req, res, next) {
+async function requestAccessToken(req, res, next) {
   const { oauth_verifier: oauthVerifier, denied } = req.query
 
   if (!oauthVerifier && !denied) {
@@ -34,16 +33,20 @@ async function requestAccessToken (req, res, next) {
 
   if (denied) return res.redirect('/')
 
-  const { oauthToken, oauthTokenSecret } = temp
+  const { oauthToken, oauthTokenSecret } = store.getToken()
 
-  // const accessToken =
-  await oauthPromise.getOAuthAccessToken({
+  const accessToken = await oauthPromise.getOAuthAccessToken({
     oauthToken,
     oauthTokenSecret,
     oauthVerifier
   })
 
-  temp = {}
+  let updatedToken = store.getToken()
+  updatedToken.oauthAccessToken = accessToken.oauthAccessToken
+  updatedToken.oauthAccessTokenSecret = accessToken.oauthAccessTokenSecret
+
+  store.saveToken(updatedToken)
+  store.saveUser(accessToken.results)
 
   res.redirect('/')
 }
