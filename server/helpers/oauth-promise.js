@@ -22,7 +22,7 @@ module.exports = () => {
     OAUTH_SIGNATURE_METHOD
   )
 
-  function getOAuthAccessToken({
+  function getOAuthAccessToken ({
     oauthToken,
     oauthTokenSecret,
     oauthVerifier
@@ -40,7 +40,7 @@ module.exports = () => {
     })
   }
 
-  function getOAuthRequestToken() {
+  function getOAuthRequestToken () {
     return new Promise((resolve, reject) => {
       oauth.getOAuthRequestToken(
         (err, oauthToken, oauthTokenSecret, results) => {
@@ -56,7 +56,7 @@ module.exports = () => {
     })
   }
 
-  function get(url) {
+  function get (url) {
     const { oauthAccessToken, oauthAccessTokenSecret } = store.getToken()
 
     return new Promise((resolve, reject) => {
@@ -72,9 +72,27 @@ module.exports = () => {
     })
   }
 
+  function post (url, body = {}) {
+    const { oauthAccessToken, oauthAccessTokenSecret } = store.getToken()
+
+    return new Promise((resolve, reject) => {
+      oauth.post(
+        url,
+        oauthAccessToken,
+        oauthAccessTokenSecret,
+        body,
+        (err, data, res) => {
+          if (err) return reject(err)
+          resolve(data)
+        }
+      )
+    })
+  }
+
   return {
     getOAuthRequestToken,
     getOAuthAccessToken,
-    get
+    get,
+    post
   }
 }
