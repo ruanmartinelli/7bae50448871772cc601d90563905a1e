@@ -5,19 +5,19 @@ const db = low(adapter)
 
 db.defaults({ user: {}, token: {} }).write()
 
-function saveUser(user) {
+function saveUser (user) {
   db.set('user', user).write()
 }
 
-function saveToken(token) {
+function saveToken (token) {
   db.set('token', token).write()
 }
 
-function getToken() {
+function getToken () {
   return db.get('token').value()
 }
 
-function getUser() {
+function getUser () {
   return db.get('user').value()
 }
 
