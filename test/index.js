@@ -4,6 +4,7 @@ const _ = require('lodash')
 const test = require('ava')
 const request = require('axios')
 const app = require('../server')
+const store = require('../server/helpers/store')
 const BASE_URL = 'http://localhost'
 
 test.before(() => {
@@ -44,4 +45,18 @@ test('POST /connect should return Twitter information', async t => {
   t.is(response.status, 200)
   t.is(_.isNil(response.data.id), false)
   t.is(_.isNil(response.data.name), false)
+})
+
+test('POST /disconnect should clean tokens & return twitter id', async t => {
+  store.saveToken({
+    oauthToken: '8888&&8',
+    oauthTokenSecret: '88&8&8'
+  })
+
+  const response = await request.post('/disconnect')
+
+  t.is(_.isEmpty(store.getToken()), true)
+
+  t.is(response.status, 200)
+  t.is(_.isNil(response.data.twitter_id), false)
 })
