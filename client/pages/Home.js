@@ -5,7 +5,7 @@ import Avatar from '../components/Avatar'
 import Tweet from '../components/Tweet'
 
 class Home extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { tweets: [], user: {} }
 
@@ -14,7 +14,7 @@ class Home extends React.Component {
     this.logout = this.logout.bind(this)
   }
 
-  getUserData() {
+  getUserData () {
     post('/connect')
       .then(res => res.data)
       .then(user => {
@@ -22,7 +22,7 @@ class Home extends React.Component {
       })
   }
 
-  getTweets() {
+  getTweets () {
     get('/tweets')
       .then(res => res.data)
       .then(tweets => {
@@ -30,7 +30,7 @@ class Home extends React.Component {
       })
   }
 
-  logout() {
+  logout () {
     return post('/disconnect')
       .then(res => res.data)
       .then(data => {
@@ -38,7 +38,7 @@ class Home extends React.Component {
       })
   }
 
-  render() {
+  render () {
     const {
       name,
       screen_name: username,
@@ -47,34 +47,38 @@ class Home extends React.Component {
     const { tweets } = this.state
 
     const tweetsList = tweets.map((tweet, index) => (
-      <div className="row" key={index}>
-        <div className="col my-2">
-          <Tweet text={tweet.text} user={tweet.from_user} created={tweet.created_at} />
+      <div className='row' key={index}>
+        <div className='col my-2'>
+          <Tweet
+            text={tweet.text}
+            user={tweet.from_user}
+            created={tweet.created_at}
+          />
         </div>
       </div>
     ))
 
     return (
       <div>
-        <div className="row mt-3">
-          <div className="col">
+        <div className='row mt-3'>
+          <div className='col'>
             <Button handler={this.getUserData}>Connect</Button>
             <Button handler={this.getTweets}>Refresh Tweets</Button>
           </div>
-          <div className="col text-right">
+          <div className='col text-right'>
             <Button handler={this.logout}>Logout</Button>
           </div>
-          </div>
-          <hr />
-        <div className="row">
-          <div className="col-1">
+        </div>
+        <hr />
+        <div className='row'>
+          <div className='col-1'>
             <Avatar source={avatarUrl} />
           </div>
         </div>
-        <div className="row mt-2">
-          <div className="col-10">
-            <h2 className="text-left">{name}</h2>
-            <p className="text-muted">{username ? '@' + username : ''}</p>
+        <div className='row mt-2'>
+          <div className='col-10'>
+            <h2 className='text-left'>{name}</h2>
+            <p className='text-muted'>{username ? '@' + username : ''}</p>
           </div>
         </div>
         <div>{tweetsList}</div>
