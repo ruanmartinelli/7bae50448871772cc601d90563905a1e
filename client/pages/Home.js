@@ -1,9 +1,10 @@
 import React from 'react'
 import { get, post } from 'axios'
 import Button from '../components/Button'
+import Avatar from '../components/Avatar'
 
 class Home extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { tweets: [], user: {} }
 
@@ -12,7 +13,7 @@ class Home extends React.Component {
     this.logout = this.logout.bind(this)
   }
 
-  getUserData () {
+  getUserData() {
     post('/connect')
       .then(res => res.data)
       .then(user => {
@@ -20,24 +21,28 @@ class Home extends React.Component {
       })
   }
 
-  getTweets () {
+  getTweets() {
     get('/tweets')
-    .then(res => res.data)
-    .then(tweets => {
-      this.setState({ tweets })
-    })
+      .then(res => res.data)
+      .then(tweets => {
+        this.setState({ tweets })
+      })
   }
 
-  logout () {
+  logout() {
     return post('/disconnect')
-    .then(res => res.data)
-    .then(data => {
-      window.location.href = '#/login'
-    })
+      .then(res => res.data)
+      .then(data => {
+        window.location.href = '#/login'
+      })
   }
 
-  render () {
-    const { name, screen_name: username, profile_image_url: avatarUrl } = this.state.user
+  render() {
+    const {
+      name,
+      screen_name: username,
+      profile_image_url: avatarUrl
+    } = this.state.user
     const { tweets } = this.state
 
     const tweetsList = tweets.map((tweet, index) => (
@@ -51,13 +56,25 @@ class Home extends React.Component {
 
     return (
       <div>
-        <Button handler={this.getUserData}>Connect</Button>
-        <Button handler={this.getTweets}>Refresh Tweets</Button>
-        <Button handler={this.logout}>Logout</Button>
-        <hr />
-        <img src={avatarUrl} alt='' />
-        <h3>{name}</h3>
-        <h3>{username}</h3>
+        <div className="row mt-3">
+          <div className="col">
+            <Button handler={this.getUserData}>Connect</Button>
+            <Button handler={this.getTweets}>Refresh Tweets</Button>
+            <Button handler={this.logout}>Logout</Button>
+            <hr />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-1">
+            <Avatar source={avatarUrl} />
+          </div>
+        </div>
+        <div className="row mt-2">
+          <div className="col-10">
+            <h2 className="text-left">{name}</h2>
+            <p className="text-muted">{username ? '@' + username : ''}</p>
+          </div>
+        </div>
         <div>{tweetsList}</div>
       </div>
     )
