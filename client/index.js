@@ -1,14 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Route, Link, HashRouter as Router } from 'react-router-dom'
+
+import Login from './pages/Login'
+import Home from './pages/Home'
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
-      <div>
-        <h1> react works 💪</h1>
-        <a href='/oauth_request'>Sign In</a>
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+        </div>
+      </Router>
     )
   }
 }
+
 ReactDOM.render(<App />, document.getElementById('app'))
