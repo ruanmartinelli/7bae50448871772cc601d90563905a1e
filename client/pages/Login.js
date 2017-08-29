@@ -1,13 +1,11 @@
 import React from 'react'
-import { get } from 'axios'
 
 class Login extends React.Component {
-
-  redirect() {
+  redirect () {
     window.location.href = '/oauth_request'
   }
 
-  render() {
+  render () {
     return (
       <div>
         <button onClick={this.redirect}>Sign In with Twitter</button>

@@ -1,17 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Route, Link, HashRouter as Router } from 'react-router-dom'
+import { Route, HashRouter as Router } from 'react-router-dom'
 
 import Login from './pages/Login'
 import Home from './pages/Home'
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={Login} />
         </div>
       </Router>
     )

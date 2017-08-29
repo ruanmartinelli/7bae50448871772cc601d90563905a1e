@@ -2,7 +2,7 @@ import React from 'react'
 import { get, post } from 'axios'
 
 class Home extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { tweets: [], user: {} }
 
@@ -11,7 +11,7 @@ class Home extends React.Component {
     this.logout = this.logout.bind(this)
   }
 
-  getUserData() {
+  getUserData () {
     post('/connect')
       .then(res => res.data)
       .then(user => {
@@ -19,7 +19,7 @@ class Home extends React.Component {
       })
   }
 
-  getTweets() {
+  getTweets () {
     get('/tweets')
     .then(res => res.data)
     .then(tweets => {
@@ -27,7 +27,7 @@ class Home extends React.Component {
     })
   }
 
-  logout() {
+  logout () {
     return post('/disconnect')
     .then(res => res.data)
     .then(data => {
@@ -35,8 +35,8 @@ class Home extends React.Component {
     })
   }
 
-  render() {
-    const { name, screen_name: username, profile_image_url } = this.state.user
+  render () {
+    const { name, screen_name: username, profile_image_url: avatarUrl } = this.state.user
     const { tweets } = this.state
 
     const tweetsList = tweets.map((tweet, index) => (
@@ -54,7 +54,7 @@ class Home extends React.Component {
         <button onClick={this.getTweets}>Refresh Tweets</button>
         <button onClick={this.logout}>Logout</button>
         <hr />
-        <img src={profile_image_url} alt="" />
+        <img src={avatarUrl} alt='' />
         <h3>{name}</h3>
         <h3>{username}</h3>
         <div>{tweetsList}</div>
