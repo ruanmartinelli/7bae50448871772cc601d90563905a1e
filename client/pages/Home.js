@@ -2,6 +2,7 @@ import React from 'react'
 import { get, post } from 'axios'
 import Button from '../components/Button'
 import Avatar from '../components/Avatar'
+import Tweet from '../components/Tweet'
 
 class Home extends React.Component {
   constructor(props) {
@@ -46,11 +47,10 @@ class Home extends React.Component {
     const { tweets } = this.state
 
     const tweetsList = tweets.map((tweet, index) => (
-      <div key={index}>
-        <blockquote>
-          <p>{tweet.text}</p>
-          <em>- {tweet.from_user}</em>
-        </blockquote>
+      <div className="row" key={index}>
+        <div className="col my-2">
+          <Tweet text={tweet.text} user={tweet.from_user} created={tweet.created_at} />
+        </div>
       </div>
     ))
 
@@ -60,10 +60,12 @@ class Home extends React.Component {
           <div className="col">
             <Button handler={this.getUserData}>Connect</Button>
             <Button handler={this.getTweets}>Refresh Tweets</Button>
-            <Button handler={this.logout}>Logout</Button>
-            <hr />
           </div>
-        </div>
+          <div className="col text-right">
+            <Button handler={this.logout}>Logout</Button>
+          </div>
+          </div>
+          <hr />
         <div className="row">
           <div className="col-1">
             <Avatar source={avatarUrl} />
