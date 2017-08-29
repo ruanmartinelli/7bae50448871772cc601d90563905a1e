@@ -24,6 +24,7 @@ async function getUserTweets (req, res, next) {
 
   const simplifiedTweets = tweets.map(tweet => {
     return {
+      tweet_id: tweet.id,
       text: tweet.text,
       created_at: tweet.created_at,
       from_user: tweet.user.screen_name
