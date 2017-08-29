@@ -1,5 +1,6 @@
 import React from 'react'
 import { get, post } from 'axios'
+import Button from '../components/Button'
 
 class Home extends React.Component {
   constructor (props) {
@@ -50,9 +51,9 @@ class Home extends React.Component {
 
     return (
       <div>
-        <button onClick={this.getUserData}>Connect</button>
-        <button onClick={this.getTweets}>Refresh Tweets</button>
-        <button onClick={this.logout}>Logout</button>
+        <Button handler={this.getUserData}>Connect</Button>
+        <Button handler={this.getTweets}>Refresh Tweets</Button>
+        <Button handler={this.logout}>Logout</Button>
         <hr />
         <img src={avatarUrl} alt='' />
         <h3>{name}</h3>
