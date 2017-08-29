@@ -42,12 +42,13 @@ class Home extends React.Component {
     const {
       name,
       screen_name: username,
-      profile_image_url: avatarUrl
+      profile_image_url: avatarUrl,
+      tweet_id: id
     } = this.state.user
     const { tweets } = this.state
 
-    const tweetsList = tweets.map((tweet, index) => (
-      <div className='row' key={index}>
+    const tweetsList = tweets.map(tweet => (
+      <div className='row' key={tweet.id}>
         <div className='col my-2'>
           <Tweet
             text={tweet.text}
