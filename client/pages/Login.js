@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../components/Button'
 
 class Login extends React.Component {
   redirect () {
@@ -8,7 +9,7 @@ class Login extends React.Component {
   render () {
     return (
       <div>
-        <button onClick={this.redirect}>Sign In with Twitter</button>
+        <Button handler={this.redirect}>Sign In with Twitter 🐦</Button>
       </div>
     )
   }
