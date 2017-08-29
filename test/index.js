@@ -60,3 +60,10 @@ test('POST /disconnect should clean tokens & return twitter id', async t => {
   t.is(response.status, 200)
   t.is(_.isNil(response.data.twitter_id), false)
 })
+
+test('GET /tweets should 100 tweets from user', async t => {
+  const response = await request.get('/tweets')
+
+  t.is(response.status, 200)
+  t.is(_.isArray(response.data), true)
+})
