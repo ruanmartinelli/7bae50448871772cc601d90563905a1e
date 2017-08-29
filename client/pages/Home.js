@@ -6,26 +6,33 @@ class Home extends React.Component {
     super(props)
     this.state = { tweets: [], user: {} }
 
-    this.getTwitterData = this.getTwitterData.bind(this)
+    this.getUserData = this.getUserData.bind(this)
+    this.getTweets = this.getTweets.bind(this)
     this.logout = this.logout.bind(this)
   }
 
-  getTwitterData() {
-    const userDataPromise = post('/connect').then(res => res.data)
-    const tweetDataPromise = get('/tweets').then(res => res.data)
+  getUserData() {
+    post('/connect')
+      .then(res => res.data)
+      .then(user => {
+        this.setState({ user })
+      })
+  }
 
-    Promise.all([userDataPromise, tweetDataPromise]).then(([user, tweets]) => {
-      this.setState({ tweets, user })
+  getTweets() {
+    get('/tweets')
+    .then(res => res.data)
+    .then(tweets => {
+      this.setState({ tweets })
     })
   }
 
   logout() {
     return post('/disconnect')
-      .then(res => res.data)
-      .then(data => {
-        this.setState({ twitterData: {} })
-        window.location.href = '#/login'
-      })
+    .then(res => res.data)
+    .then(data => {
+      window.location.href = '#/login'
+    })
   }
 
   render() {
@@ -43,7 +50,8 @@ class Home extends React.Component {
 
     return (
       <div>
-        <button onClick={this.getTwitterData}>Connect</button>
+        <button onClick={this.getUserData}>Connect</button>
+        <button onClick={this.getTweets}>Refresh Tweets</button>
         <button onClick={this.logout}>Logout</button>
         <hr />
         <img src={profile_image_url} alt="" />
@@ -55,5 +63,4 @@ class Home extends React.Component {
   }
 }
 
-// {tweets.map((tweet, index) => <li key={tweet.index}>{tweet.text}</li>)}
 export default Home
