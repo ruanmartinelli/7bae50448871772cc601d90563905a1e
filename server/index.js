@@ -16,7 +16,7 @@ controllers.init(server)
 server.listen(process.env.APP_PORT, err => {
   if (err) throw err
 
-  console.log(`Listening on port ${process.env.APP_PORT}`)
+  console.log(`Running. Visit http://localhost:${process.env.APP_PORT}`)
 })
 
 module.exports = server
