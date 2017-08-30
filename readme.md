@@ -1,8 +1,8 @@
-## Requirements
+### Requirements
 
 Node.js 7.6+ because of Async/Await
 
-## Folder structure
+### Folder structure
 
 Folders are divided using the following structure:
 
@@ -23,7 +23,7 @@ Folders are divided using the following structure:
 └── db.json                     # lowdb file
 ```
 
-## Running
+### Running
 
 1. Clone the repo
 
@@ -32,7 +32,7 @@ git clone https://github.com/ruanmartinelli/7bae50448871772cc601d90563905a1e.git
 cd 7bae50448871772cc601d90563905a1e
 ```
 
-2. Create a .env file
+2. Create a `.env` file
 
 ```bash
 mv .env.example .env
@@ -47,13 +47,13 @@ mv .env.example .env
 yarn install
 ```
 
-4. Run
+5. Run
 
 ```bash
 yarn start
 ```
 
-## Develop
+### Develop
 
 #### Start in dev mode
 
