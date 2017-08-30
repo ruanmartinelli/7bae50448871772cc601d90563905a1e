@@ -21,6 +21,9 @@ class Home extends React.Component {
         this.setState({ user })
         localStorage.setItem('user', JSON.stringify(user))
       })
+      .catch(err => {
+        window.location.href = '#/login'
+      })
   }
 
   getTweets() {
@@ -29,6 +32,9 @@ class Home extends React.Component {
       .then(tweets => {
         this.setState({ tweets })
         localStorage.setItem('tweets', JSON.stringify(tweets))
+      })
+      .catch(err => {
+        window.location.href = '#/login'
       })
   }
 
