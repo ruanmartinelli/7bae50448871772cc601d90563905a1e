@@ -6,12 +6,12 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
       <Router>
-        <div className='container'>
-          <Route exact path='/' component={Home} />
-          <Route path='/login' component={Login} />
+        <div className="container">
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
         </div>
       </Router>
     )
