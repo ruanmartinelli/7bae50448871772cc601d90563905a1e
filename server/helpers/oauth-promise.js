@@ -12,6 +12,18 @@ const OAuth = require('oauth').OAuth
 const store = require('./store')
 
 module.exports = () => {
+  if (
+    !OAUTH_REQUEST_URL ||
+    !OAUTH_ACCESS_URL ||
+    !OAUTH_CONSUMER_KEY ||
+    !OAUTH_CONSUMER_SECRET ||
+    !OAUTH_VERSION ||
+    !OAUTH_AUTHORIZE_CALLBACK ||
+    !OAUTH_SIGNATURE_METHOD
+  ) {
+    throw new Error('Twitter keys not found. Please update your .env file')
+  }
+
   const oauth = new OAuth(
     OAUTH_REQUEST_URL,
     OAUTH_ACCESS_URL,
@@ -22,7 +34,7 @@ module.exports = () => {
     OAUTH_SIGNATURE_METHOD
   )
 
-  function getOAuthAccessToken ({
+  function getOAuthAccessToken({
     oauthToken,
     oauthTokenSecret,
     oauthVerifier
@@ -40,7 +52,7 @@ module.exports = () => {
     })
   }
 
-  function getOAuthRequestToken () {
+  function getOAuthRequestToken() {
     return new Promise((resolve, reject) => {
       oauth.getOAuthRequestToken(
         (err, oauthToken, oauthTokenSecret, results) => {
@@ -56,7 +68,7 @@ module.exports = () => {
     })
   }
 
-  function get (url) {
+  function get(url) {
     const { oauthAccessToken, oauthAccessTokenSecret } = store.getToken()
 
     return new Promise((resolve, reject) => {
@@ -72,7 +84,7 @@ module.exports = () => {
     })
   }
 
-  function post (url, body = {}) {
+  function post(url, body = {}) {
     const { oauthAccessToken, oauthAccessTokenSecret } = store.getToken()
 
     return new Promise((resolve, reject) => {
