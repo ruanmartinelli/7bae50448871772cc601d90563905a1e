@@ -19,6 +19,7 @@ class Home extends React.Component {
       .then(res => res.data)
       .then(user => {
         this.setState({ user })
+        localStorage.setItem('user', JSON.stringify(user))
       })
   }
 
@@ -27,6 +28,7 @@ class Home extends React.Component {
       .then(res => res.data)
       .then(tweets => {
         this.setState({ tweets })
+        localStorage.setItem('tweets', JSON.stringify(tweets))
       })
   }
 
@@ -34,8 +36,21 @@ class Home extends React.Component {
     return post('/disconnect')
       .then(res => res.data)
       .then(data => {
+        localStorage.clear()
         window.location.href = '#/login'
       })
+  }
+
+  componentWillMount() {
+    const storedUser = localStorage.getItem('user')
+    const storedTweets = localStorage.getItem('tweets')
+
+    if (storedUser) {
+      this.setState({ user: JSON.parse(storedUser) })
+    }
+    if (storedTweets) {
+      this.setState({ tweets: JSON.parse(storedTweets) })
+    }
   }
 
   render() {
