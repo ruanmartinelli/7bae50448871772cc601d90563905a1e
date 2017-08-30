@@ -47,7 +47,7 @@ mv .env.example .env
 yarn install
 ```
 
-4. Run
+5. Run
 
 ```bash
 yarn start
